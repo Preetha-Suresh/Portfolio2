@@ -88,10 +88,10 @@ const SkillsSection = () => {
           {codingProfiles.map((profile, index) => (
             <div
               key={profile.name}
-              className={`relative group p-6 rounded-xl ${profile.bgColor} border border-slate-700 hover:border-blue-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer`}
+              className={`relative group p-6 rounded-xl ${profile.bgColor} border border-slate-700 hover:border-blue-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer animate-fade-in-up`}
               style={{
                 animationDelay: `${index * 0.1}s`,
-                animation: isVisible ? 'fadeInUp 0.6s ease-out forwards' : 'none'
+                opacity: isVisible ? 1 : 0
               }}
             >
               <div className="text-center">
@@ -109,19 +109,6 @@ const SkillsSection = () => {
           ))}
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </section>
   );
 };
