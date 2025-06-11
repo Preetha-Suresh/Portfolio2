@@ -1,8 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
+import { Home, User, Briefcase, Contact } from 'lucide-react';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,9 +15,17 @@ const Navigation = () => {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
+    setActiveSection(sectionId);
     const element = document.getElementById(sectionId);
     element?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const navItems = [
+    { id: 'home', label: 'Home', icon: Home },
+    { id: 'skills', label: 'Profiles', icon: User },
+    { id: 'projects', label: 'Projects', icon: Briefcase },
+    { id: 'contact', label: 'Contact', icon: Contact },
+  ];
 
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -26,15 +36,20 @@ const Navigation = () => {
           <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
             Portfolio
           </div>
-          <div className="hidden md:flex space-x-8">
-            {['Home', 'Skills', 'Projects', 'Contact'].map((item) => (
+          
+          <div className="flex space-x-2">
+            {navItems.map(({ id, label, icon: Icon }) => (
               <button
-                key={item}
-                onClick={() => scrollToSection(item.toLowerCase())}
-                className="text-slate-300 hover:text-blue-400 transition-colors duration-300 relative group"
+                key={id}
+                onClick={() => scrollToSection(id)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${
+                  activeSection === id
+                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
+                    : 'text-slate-300 hover:text-blue-400 hover:bg-slate-800/50'
+                }`}
               >
-                {item}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"></span>
+                <Icon size={16} />
+                <span className="hidden md:inline">{label}</span>
               </button>
             ))}
           </div>

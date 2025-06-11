@@ -8,39 +8,30 @@ const ProjectsSection = () => {
   const projects = [
     {
       title: 'E-Commerce Platform',
-      description: 'Full-stack e-commerce solution with React, Node.js, and MongoDB. Features include user authentication, payment integration, and admin dashboard.',
-      techStack: ['React', 'Node.js', 'MongoDB', 'Stripe', 'JWT'],
-      image: '🛒',
+      description: 'Full-stack e-commerce solution with React, Node.js, and PostgreSQL. Features include user authentication, payment processing, and admin dashboard.',
+      techStack: ['React', 'Node.js', 'PostgreSQL', 'Stripe'],
+      image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80',
       demoLink: '#',
       githubLink: '#',
       gradient: 'from-blue-500 to-purple-600'
     },
     {
       title: 'Task Management App',
-      description: 'Modern task management application with drag-and-drop functionality, real-time updates, and team collaboration features.',
-      techStack: ['React', 'TypeScript', 'Firebase', 'Material-UI', 'Socket.io'],
-      image: '📋',
+      description: 'Collaborative task management tool with real-time updates, drag-and-drop functionality, and team collaboration features.',
+      techStack: ['React', 'Socket.io', 'MongoDB', 'Express'],
+      image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=800&q=80',
       demoLink: '#',
       githubLink: '#',
       gradient: 'from-green-500 to-blue-500'
     },
     {
-      title: 'Weather Dashboard',
-      description: 'Interactive weather dashboard with beautiful visualizations, location-based forecasts, and historical data analysis.',
-      techStack: ['Vue.js', 'Chart.js', 'OpenWeather API', 'CSS3', 'PWA'],
-      image: '🌤️',
+      title: 'Weather Analytics Dashboard',
+      description: 'Interactive weather dashboard with data visualization, forecasting, and location-based weather alerts using external APIs.',
+      techStack: ['React', 'Chart.js', 'Weather API', 'Tailwind'],
+      image: 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?auto=format&fit=crop&w=800&q=80',
       demoLink: '#',
       githubLink: '#',
       gradient: 'from-orange-500 to-pink-500'
-    },
-    {
-      title: 'Social Media Analytics',
-      description: 'Comprehensive social media analytics tool with data visualization, sentiment analysis, and automated reporting.',
-      techStack: ['Python', 'Django', 'D3.js', 'PostgreSQL', 'Redis'],
-      image: '📊',
-      demoLink: '#',
-      githubLink: '#',
-      gradient: 'from-purple-500 to-indigo-600'
     }
   ];
 
@@ -53,12 +44,12 @@ const ProjectsSection = () => {
               Featured Projects
             </span>
           </h2>
-          <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-            A showcase of my recent work and creative solutions
+          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+            A showcase of my recent work and side projects that demonstrate my skills and passion for development
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
             <div
               key={index}
@@ -68,29 +59,27 @@ const ProjectsSection = () => {
             >
               {/* Project Card */}
               <div className={`
-                relative h-96 rounded-2xl overflow-hidden transition-all duration-500
-                ${hoveredProject === index ? 'transform scale-105 rotate-1' : 'transform scale-100 rotate-0'}
+                relative overflow-hidden rounded-2xl bg-slate-800/50 border border-slate-700 transition-all duration-500
+                ${hoveredProject === index ? 'transform scale-105 border-blue-500/50' : 'transform scale-100'}
                 cursor-pointer
               `}>
-                {/* Background Gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-20`}></div>
-                
-                {/* Glass Effect */}
-                <div className="absolute inset-0 bg-slate-800/60 backdrop-blur-sm border border-slate-700 rounded-2xl"></div>
+                {/* Project Image */}
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent"></div>
+                </div>
                 
                 {/* Content */}
-                <div className="relative z-10 p-6 h-full flex flex-col">
-                  {/* Project Icon */}
-                  <div className="text-6xl mb-4 transform transition-transform duration-300 group-hover:scale-110">
-                    {project.image}
-                  </div>
-                  
-                  {/* Project Info */}
-                  <h3 className="text-2xl font-bold text-white mb-3">{project.title}</h3>
-                  <p className="text-slate-300 mb-4 flex-grow leading-relaxed">{project.description}</p>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-white mb-3">{project.title}</h3>
+                  <p className="text-slate-300 mb-4 leading-relaxed text-sm">{project.description}</p>
                   
                   {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-2 mb-6">
                     {project.techStack.map((tech, techIndex) => (
                       <span
                         key={techIndex}
@@ -101,54 +90,21 @@ const ProjectsSection = () => {
                     ))}
                   </div>
                   
-                  {/* Action Buttons */}
-                  <div className="flex gap-3">
-                    <a
-                      href={project.demoLink}
-                      className="flex-1 flex items-center justify-center gap-2 py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors duration-300 text-sm font-medium"
-                    >
-                      <ExternalLink size={16} />
-                      Live Demo
-                    </a>
-                    <a
-                      href={project.githubLink}
-                      className="flex-1 flex items-center justify-center gap-2 py-2 px-4 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors duration-300 text-sm font-medium"
-                    >
-                      <Github size={16} />
-                      Code
-                    </a>
-                  </div>
+                  {/* Action Button */}
+                  <button className="w-full py-3 px-4 bg-slate-700/50 hover:bg-blue-600 text-slate-300 hover:text-white rounded-xl transition-all duration-300 border border-slate-600 hover:border-blue-500 font-medium">
+                    View Project
+                  </button>
                 </div>
 
                 {/* Hover Glow Effect */}
                 <div className={`
                   absolute inset-0 rounded-2xl transition-opacity duration-300 pointer-events-none
                   bg-gradient-to-br ${project.gradient}
-                  ${hoveredProject === index ? 'opacity-30' : 'opacity-0'}
+                  ${hoveredProject === index ? 'opacity-20' : 'opacity-0'}
                 `}></div>
               </div>
-
-              {/* Floating Elements */}
-              <div className={`
-                absolute -top-2 -right-2 w-4 h-4 bg-blue-500 rounded-full transition-all duration-300
-                ${hoveredProject === index ? 'scale-150 opacity-100' : 'scale-100 opacity-60'}
-              `}></div>
-              <div className={`
-                absolute -bottom-2 -left-2 w-3 h-3 bg-purple-500 rounded-full transition-all duration-300
-                ${hoveredProject === index ? 'scale-150 opacity-100' : 'scale-100 opacity-60'}
-              `}></div>
             </div>
           ))}
-        </div>
-
-        {/* View More Button */}
-        <div className="text-center mt-12">
-          <button className="group px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full hover:scale-105 transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/25">
-            <span className="flex items-center gap-2">
-              View All Projects
-              <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-            </span>
-          </button>
         </div>
       </div>
     </section>
