@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Github, Code, Trophy, BookOpen } from 'lucide-react';
 
@@ -7,41 +6,45 @@ const SkillsSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   const codingProfiles = [
-    { 
-      name: 'GitHub', 
+    {
+      name: 'GitHub',
       description: 'Open source contributions & projects',
-      stat: '50+ Repositories',
+      stat: '15+ Repositories',
       icon: Github,
       color: 'from-gray-400 to-gray-600',
       bgColor: 'bg-gray-500/10',
-      buttonText: 'Visit Profile'
+      buttonText: 'Visit Profile',
+      link: 'https://github.com/Preetha-Suresh',
     },
-    { 
-      name: 'LeetCode', 
+    {
+      name: 'LeetCode',
       description: 'Algorithmic problem solving',
-      stat: '200+ Problems Solved',
+      stat: '5+ Problems Solved',
       icon: Code,
       color: 'from-orange-400 to-red-500',
       bgColor: 'bg-orange-500/10',
-      buttonText: 'Visit Profile'
+      buttonText: 'Visit Profile',
+      link: 'https://leetcode.com/u/Preetha_206/',
     },
-    { 
-      name: 'CodeChef', 
-      description: 'Competitive programming',
-      stat: '3★ Rating',
-      icon: Trophy,
-      color: 'from-yellow-400 to-orange-500',
-      bgColor: 'bg-yellow-500/10',
-      buttonText: 'Visit Profile'
-    },
-    { 
-      name: 'GeeksforGeeks', 
+    {
+      name: 'GeeksforGeeks',
       description: 'Technical articles & solutions',
-      stat: '100+ Solutions',
+      stat: '100+ problems solve',
       icon: BookOpen,
       color: 'from-green-400 to-green-600',
       bgColor: 'bg-green-500/10',
-      buttonText: 'Visit Profile'
+      buttonText: 'Visit Profile',
+      link: 'https://www.geeksforgeeks.org/user/preethq1zx/',
+    },
+    {
+      name: 'CodeChef',
+      description: 'Competitive programming',
+      stat: '★ Rating',
+      icon: Trophy,
+      color: 'from-yellow-400 to-orange-500',
+      bgColor: 'bg-yellow-500/10',
+      buttonText: 'Visit Profile',
+      link: 'https://www.codechef.com/users/preetha_206',
     },
   ];
 
@@ -85,33 +88,35 @@ const SkillsSection = () => {
                 className={`relative group p-8 rounded-2xl ${profile.bgColor} border border-slate-700 hover:border-blue-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer animate-fade-in-up text-center`}
                 style={{
                   animationDelay: `${index * 0.1}s`,
-                  opacity: isVisible ? 1 : 0
+                  opacity: isVisible ? 1 : 0,
                 }}
               >
-                {/* Icon */}
                 <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-r ${profile.color} flex items-center justify-center`}>
                   <IconComponent className="w-8 h-8 text-white" />
                 </div>
 
-                {/* Content */}
                 <h4 className={`text-xl font-bold mb-2 bg-gradient-to-r ${profile.color} bg-clip-text text-transparent`}>
                   {profile.name}
                 </h4>
                 <p className="text-slate-400 text-sm mb-4">
                   {profile.description}
                 </p>
-                
-                {/* Stat Badge */}
+
                 <div className={`inline-block px-4 py-2 rounded-full bg-gradient-to-r ${profile.color} text-white text-sm font-semibold mb-6`}>
                   {profile.stat}
                 </div>
 
-                {/* Visit Button */}
-                <button className="w-full py-3 px-4 bg-slate-700/50 hover:bg-slate-600/50 text-slate-300 hover:text-white rounded-xl transition-all duration-300 border border-slate-600 hover:border-slate-500">
-                  {profile.buttonText}
-                </button>
-                
-                {/* Hover glow effect */}
+                <a
+                  href={profile.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <button className="w-full py-3 px-4 bg-slate-700/50 hover:bg-slate-600/50 text-slate-300 hover:text-white rounded-xl transition-all duration-300 border border-slate-600 hover:border-slate-500">
+                    {profile.buttonText}
+                  </button>
+                </a>
+
                 <div className={`absolute inset-0 rounded-2xl bg-gradient-to-r ${profile.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none`}></div>
               </div>
             );

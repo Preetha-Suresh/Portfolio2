@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
 import { Mail, Github, Linkedin, Instagram } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -14,16 +14,31 @@ const ContactSection = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setSubmitted(true);
-    setFormData({ name: '', email: '', message: '' });
-    
-    // Reset success message after 3 seconds
-    setTimeout(() => setSubmitted(false), 3000);
+
+    try {
+      const result = await emailjs.send(
+        'service_g3j0abt', // Your EmailJS service ID
+        'template_hpsjkwp', // Your EmailJS template ID
+        {
+          from_name: formData.name,
+          reply_to: formData.email,
+          message: formData.message
+        },
+        'Fs1GIPF-ruInJpEsC' // Your EmailJS public key
+      );
+
+      console.log('Email successfully sent!', result.text);
+      setIsSubmitting(false);
+      setSubmitted(true);
+      setFormData({ name: '', email: '', message: '' });
+
+      // Reset success message after 3 seconds
+      setTimeout(() => setSubmitted(false), 3000);
+    } catch (error) {
+      console.error('Email sending error:', error);
+      setIsSubmitting(false);
+      alert('Oops! Something went wrong. Please try again.');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -34,10 +49,10 @@ const ContactSection = () => {
   };
 
   const socialLinks = [
-    { icon: Mail, label: 'Email', color: 'from-red-400 to-red-600', bgColor: 'bg-red-500' },
-    { icon: Linkedin, label: 'LinkedIn', color: 'from-blue-400 to-blue-600', bgColor: 'bg-blue-500' },
-    { icon: Github, label: 'GitHub', color: 'from-gray-400 to-gray-600', bgColor: 'bg-gray-500' },
-    { icon: Instagram, label: 'Instagram', color: 'from-pink-400 to-purple-600', bgColor: 'bg-pink-500' },
+    { icon: Mail, label: 'Email', color: 'from-red-400 to-red-600', bgColor: 'bg-red-500', url: 'mailto:preethapslv@gmail.com' },
+    { icon: Linkedin, label: 'LinkedIn', color: 'from-blue-400 to-blue-600', bgColor: 'bg-blue-500', url: 'https://www.linkedin.com/in/preethasuresh206/' },
+    { icon: Github, label: 'GitHub', color: 'from-gray-400 to-gray-600', bgColor: 'bg-gray-500', url: 'https://github.com/Preetha-Suresh' },
+    { icon: Instagram, label: 'Instagram', color: 'from-pink-400 to-purple-600', bgColor: 'bg-pink-500', url: 'https://www.instagram.com/preetha.sh_206/' },
   ];
 
   return (
@@ -105,7 +120,7 @@ const ContactSection = () => {
                       required
                       rows={6}
                       className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 resize-none"
-                      placeholder="Tell me about your project or just say hello!"
+                      placeholder="Let's Connect!"
                     />
                   </div>
 
@@ -146,12 +161,13 @@ const ContactSection = () => {
           {/* Connect With Me */}
           <div>
             <h3 className="text-2xl font-bold text-blue-400 mb-8">Connect With Me</h3>
-            
             <div className="grid grid-cols-2 gap-4 mb-8">
-              {socialLinks.map(({ icon: Icon, label, bgColor }) => (
+              {socialLinks.map(({ icon: Icon, label, bgColor, url }) => (
                 <a
                   key={label}
-                  href="#"
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group p-6 bg-slate-800/50 border border-slate-700 rounded-2xl hover:border-blue-500/50 transition-all duration-300 hover:scale-105 text-center"
                 >
                   <div className={`w-12 h-12 ${bgColor} rounded-2xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300`}>
